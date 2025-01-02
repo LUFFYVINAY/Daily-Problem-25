@@ -1,0 +1,61 @@
+
+/*class Solution {
+    public int[] vowelStrings(String[] words, int[][] queries) {
+        char[]ch = new char[] {'a','e','i','o','u'};
+        HashSet<Character> st = new HashSet<>();
+        int ans [] = new int[queries.length];
+        for(char c : ch){
+            st.add(c);
+        }
+
+        for(int i=0;i<queries.length;i++){
+            int start = queries[i][0];
+            int end = queries[i][1];
+
+            for(int j = start ; j<=end;j++){
+                String curr = words[j];
+                char firstLetter = curr.charAt(0);
+                char lastLetter = curr.charAt(words[j].length()-1);
+
+                if(st.contains(firstLetter) && st.contains(lastLetter)){
+                    ans[i]++;
+                }
+            }
+        }
+
+        return ans;
+
+
+    }
+}
+*/
+
+
+class Solution {
+    public int[] vowelStrings(String[] words, int[][] queries) {
+        // Define vowels
+        HashSet<Character> vowels = new HashSet<>();
+        for (char c : new char[]{'a', 'e', 'i', 'o', 'u'}) {
+            vowels.add(c);
+        }
+
+        // Precompute prefix sums for valid words
+        int n = words.length;
+        int[] prefix = new int[n + 1];
+        for (int i = 0; i < n; i++) {
+            char first = words[i].charAt(0);
+            char last = words[i].charAt(words[i].length() - 1);
+            prefix[i + 1] = prefix[i] + (vowels.contains(first) && vowels.contains(last) ? 1 : 0);
+        }
+
+        // Process queries
+        int[] ans = new int[queries.length];
+        for (int i = 0; i < queries.length; i++) {
+            int start = queries[i][0];
+            int end = queries[i][1];
+            ans[i] = prefix[end + 1] - prefix[start];
+        }
+
+        return ans;
+    }
+}
