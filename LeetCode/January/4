@@ -1,0 +1,35 @@
+class Solution {
+    public int countPalindromicSubsequence(String s) {
+       HashMap<Character, Integer> prefix = new HashMap<>();
+       HashMap<Character,Integer> suffix = new HashMap<>();
+       int count=0;
+       
+
+       for(int i=0;i<s.length();i++){
+         if(!prefix.containsKey(s.charAt(i))){
+                prefix.put(s.charAt(i),i);
+         }
+       } 
+
+       for(int i= s.length()-1;i>=0;i--){
+        if(!suffix.containsKey(s.charAt(i))){
+            suffix.put(s.charAt(i),i);
+        }
+       }
+
+      for (Map.Entry<Character, Integer> entry : prefix.entrySet()) {
+            char key = entry.getKey();
+            int start = entry.getValue();
+            int last = suffix.get(key);
+
+            // Use a HashSet to avoid counting duplicate characters
+            HashSet<Character> st = new HashSet<>();
+            for (int i = start + 1; i < last; i++) {
+                st.add(s.charAt(i));
+            }
+            count += st.size(); // Add the unique middle characters for this palindrome
+        }
+
+       return count;
+    }
+}
