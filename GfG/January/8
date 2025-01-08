@@ -1,0 +1,77 @@
+class Solution {
+    // Function to count the number of possible triangles.
+    static int countTriangles(int arr[]) {
+        // code here
+        /*int n = arr.length;
+        int count =0;
+        int i = 0;
+        int j = i + 1;
+        int k = i + 2;
+        int count = countT(arr, i, j, k);
+        
+        return count;
+        
+         for (int i = 0; i < n - 2; i++) {
+            int k = i + 2; // Start k two positions ahead of i.
+            for (int j = i + 1; j < n - 1; j++) {
+                // Find the maximum index k such that arr[i] + arr[j] > arr[k].
+                while (k < n && arr[i] + arr[j] > arr[k]) {
+                    k++;
+                }
+                // Add the number of valid triangles for this pair (i, j).
+                count += (k - j - 1);
+            }
+        }
+
+        return count;
+        */
+        Arrays.sort(arr);
+        int count=0;
+        for(int k=arr.length-1;k>=2;k--){
+            int st=0;
+            int ed=k-1;
+            while(ed>st){
+                int sum=arr[st]+arr[ed];
+                if(sum>arr[k]){
+                    count+=ed-st;
+                    ed--;
+                }
+                else{
+                    st++;
+                }
+            }
+        }
+            return count;
+    }
+    
+    /*static int countT(int arr[], int i, int j, int k) {
+        int n = arr.length;
+        int count = 0;
+        
+        while (i < n - 2) {
+            if (isTriangle(arr, i, j, k)) {
+                i++;
+                j = i + 1;
+                k = i + 2;
+                count++; 
+            } else {
+                // Ensure valid triangle condition checks and proper increment of indices
+                if (arr[i] + arr[k] < arr[j] && arr[i] + arr[j] > arr[k] && arr[j] + arr[k] > arr[i] && j < arr.length - 1 && k < arr.length && i < arr.length - 2) {
+                    k++; 
+                }
+                if (arr[i] + arr[k] < arr[j] && arr[i] + arr[j] < arr[k] && arr[j] + arr[k] > arr[i] && j < arr.length - 1 && k < arr.length && i < arr.length - 2) {
+                    j++; 
+                    k++; 
+                }
+            }
+        }
+        return count;
+    }
+    
+    public static boolean isTriangle(int arr[], int i, int j, int k) {
+        if (arr[i] + arr[j] > arr[k] && arr[i] + arr[k] > arr[j] && arr[j] + arr[k] > arr[i]) {
+            return true;
+        }
+        return false;
+    }*/
+}
