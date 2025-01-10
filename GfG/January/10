@@ -1,0 +1,33 @@
+class Solution {
+    ArrayList<Integer> countDistinct(int arr[], int k) {
+        // Code here
+        ArrayList<Integer> ans = new ArrayList<>();
+        int count = 0;
+        HashSet<Integer> st1 = new HashSet<>();
+        
+        // First window
+        for (int i = 0; i < k; i++) {
+            if (!st1.contains(arr[i])) {
+                st1.add(arr[i]);
+                count++;
+            }
+        }
+        ans.add(count);
+        
+        // Sliding window logic
+        for (int i = k; i < arr.length; i++) {  // Fixed loop condition
+            count = 0;
+            int start = i - k + 1;  // Fixed window start calculation
+            int end = i;
+            HashSet<Integer> st2 = new HashSet<>();
+            for (int j = start; j <= end; j++) {
+                if (!st2.contains(arr[j])) {  // Fixed index reference
+                    st2.add(arr[j]);
+                    count++;
+                }
+            }
+            ans.add(count);
+        }
+        return ans;
+    }
+}
