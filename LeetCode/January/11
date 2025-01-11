@@ -1,0 +1,26 @@
+class Solution {
+    public boolean canConstruct(String s, int k) {
+        if (k > s.length()) {
+            return false; 
+        }
+        
+        int[] freq = new int[26]; // Frequency array for characters 'a' to 'z'
+        
+        // Count the frequency of each character
+        for (char c : s.toCharArray()) {
+            freq[c - 'a']++;
+        }
+        
+        int oddCount = 0;
+        
+        // Count characters with odd frequencies
+        for (int f : freq) {
+            if (f % 2 != 0) {
+                oddCount++;
+            }
+        }
+        
+        // We can form k palindromes if oddCount <= k
+        return oddCount <= k;
+    }
+}
