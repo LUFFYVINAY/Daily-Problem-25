@@ -1,0 +1,43 @@
+class Solution {
+    public static int[] productExceptSelf(int arr[]) {
+        // code here
+        int[] result = new int[arr.length];
+        int count0 = 0;
+        long totalProduct = 1;
+
+        // Count the number of zeros in the array
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == 0) {
+                count0++;
+            }
+        }
+
+        if (count0 == 0) {  
+            for (int i = 0; i < arr.length; i++) {
+                totalProduct *= arr[i];
+            }
+
+            for (int i = 0; i < arr.length; i++) { 
+                result[i] = (int)(totalProduct / arr[i]);  
+            }
+        } else if (count0 == 1) {
+            totalProduct = 1;  
+            for (int i = 0; i < arr.length; i++) {
+                if (arr[i] != 0) {
+                    totalProduct *= arr[i];
+                }
+            }
+            for (int i = 0; i < arr.length; i++) { 
+                if (arr[i] == 0) {
+                    result[i] = (int) totalProduct;
+                } else {
+                    result[i] = 0;
+                }
+            }
+        } else {
+            Arrays.fill(result, 0);
+        }
+
+        return result;
+    }
+}
