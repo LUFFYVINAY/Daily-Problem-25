@@ -1,0 +1,43 @@
+class Solution {
+    public Node reverseList(Node head){
+        Node current=head,next=null,prev=null;
+        while(current!=null){
+            next=current.next;
+            current.next=prev;
+            prev=current;
+            current=next;
+        }
+        return prev;
+    }
+    public Node addTwoLists(Node num1, Node num2) {
+        // code here
+        num1=reverseList(num1);
+        num2=reverseList(num2);
+        int carry=0;
+        Node ans=new Node(0);
+        Node first=ans;
+        while(num1!=null || num2!=null || carry!=0){
+            int sum=carry;
+            if(num1!=null){
+                sum+=num1.data;
+                num1=num1.next;
+            }
+            if(num2!=null){
+                sum+=num2.data;
+                num2=num2.next;
+            }
+            ans.data=sum%10;
+            carry=sum/10;
+            if(num1!=null || num2!=null || carry!=0){
+                ans.next=new Node(0);
+                ans=ans.next;
+            }
+        }
+        first=reverseList(first);
+        // removing leading zero if any 
+        while(first.data==0 && first.next!=null){
+            first=first.next;
+        }
+        return first;
+    }
+}
