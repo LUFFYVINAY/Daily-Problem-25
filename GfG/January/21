@@ -1,0 +1,21 @@
+class Solution {
+    public static Node reverseKGroup(Node head, int k) {
+        // code here
+        if(head==null) return head;
+        Node current=head,prev=null,next=null;
+        int count=0;
+       //reverse the first k nodes 
+       while(current!=null && count<k){
+           next=current.next;
+           current.next=prev;
+           prev=current;
+           current=next;
+           count++;
+       }
+       //recursively reverse the remaining nodes 
+       if(next!=null){
+           head.next=reverseKGroup(next,k);
+       }
+       return prev;
+    }
+}
