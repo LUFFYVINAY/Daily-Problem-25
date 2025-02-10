@@ -1,0 +1,35 @@
+class Solution {
+    int path =0;
+    public int sumK(Node root, int k) {
+        // code here
+        HashMap<Integer,Integer> mp = new HashMap<>();
+        mp.put(0,1);
+        helper(root,0,k,mp);
+        return path;
+    }
+    
+    public void helper(Node root, int sum , int k , HashMap<Integer,Integer> mp){
+        if(root==null){
+            return;
+        }
+        
+        sum +=root.data;
+        
+        if(mp.containsKey(sum-k)){
+            path +=mp.get(sum-k);
+        }
+        
+        mp.put(sum, mp.getOrDefault(sum,0)+1);
+        
+        helper(root.left,sum,k,mp);
+        
+        helper(root.right,sum,k,mp);
+        
+        mp.put(sum,mp.get(sum)-1);
+        
+        
+        
+        
+        
+    }
+}
