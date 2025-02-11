@@ -1,0 +1,19 @@
+class Solution {
+    public String removeOccurrences(String s, String part) {
+        for (int i = 0; i <= s.length() - part.length(); i++) { // Fixed loop condition
+            if (s.charAt(i) == part.charAt(0)) {
+                int j = 0;
+                int k = i;
+                while (j < part.length() && k < s.length() && s.charAt(k) == part.charAt(j)) { // Added boundary check
+                    j++;
+                    k++;
+                }
+                if (j == part.length()) {
+                    s = s.substring(0, i) + s.substring(k); // Fixed substring logic (removed 'k+1' and 'n')
+                    i = -1; // Reset loop to check again from the start
+                }
+            }
+        }
+        return s;
+    }
+}
