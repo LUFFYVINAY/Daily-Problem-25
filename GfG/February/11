@@ -1,0 +1,43 @@
+class Solution {
+    // Function to check whether a Binary Tree is BST or not.
+    boolean isBST(Node root) {
+        // code here.
+        if(root==null){
+            return true;
+        }
+        
+        if(root.left!=null && root.data < findMax(root.left).data){
+            return false;
+        }
+        
+        if(root.right!=null  && root.data > findMin(root.right).data){
+            
+            return false;
+        }
+        
+        
+        return (isBST(root.left) && isBST(root.right));
+        
+    }
+    
+    public Node findMin(Node root){
+        if(root==null){
+            return null;
+        }
+        while(root.left!=null){
+            root = root.left;
+        }
+        return root;
+    }
+    
+    public Node findMax(Node root){
+        if(root==null){
+            return null;
+        }
+        while(root.right!=null){
+            root = root.right;
+        }
+        
+        return root;
+    }
+}
