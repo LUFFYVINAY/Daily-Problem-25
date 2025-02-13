@@ -1,0 +1,33 @@
+class Solution {
+    //HashMap<Integer,Integer> mp = new HashMap<>();
+    HashSet<Integer> st = new HashSet<>();
+    boolean findTarget(Node root, int target) {
+        // Write your code here
+        //st.add(-1);
+        
+        
+        if( helper(root,0,target,st)){
+            return true;
+        }
+        return false;
+        
+    }
+    
+    boolean helper(Node root,int sum, int k , HashSet<Integer> st  ){
+        if(root==null){
+           //st.add(-1);
+           return false;
+        }
+        
+        
+        if(helper(root.left, sum, k, st))return true;
+        
+       
+        if(st.contains(k-root.data)){
+            return true;
+        }
+        st.add(root.data);
+        
+       return helper(root.right, sum, k, st);
+    }
+}
